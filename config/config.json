@@ -1,0 +1,6 @@
+{
+    "db": {
+        "url": "mongodb+srv://osteen:osteen@osteen-sqsvi.gcp.mongodb.net/test?retryWrites=true&w=majority",
+        "urlDev": "mongodb://localhost:27017/admindb"
+    }
+}
