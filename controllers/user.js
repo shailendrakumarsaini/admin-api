@@ -9,6 +9,15 @@ const findDocument = async (req, res)=>{
     }
 }
 
+const findDocumentById = async (req, res)=>{
+    try {
+        const result = await User.find({ _id : req.params.id});
+        res.status(200).send(result);
+    } catch (error) {
+       res.status(400).send(error); 
+    }
+}
+
 const createDocument = async (req, res)=>{
     try {
         const result = await User(req.body).save();
@@ -37,4 +46,4 @@ const deleteDocument = async (req, res)=>{
 }
 
 
-module.exports = { findDocument, createDocument, updateDocument, deleteDocument }
+module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument }

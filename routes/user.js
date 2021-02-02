@@ -4,6 +4,7 @@ const User = require("../models/user");
 const UserCtrl = require("../controllers/user");
 
 router.get('/', UserCtrl.findDocument );
+router.get('/:id', UserCtrl.findDocumentById );
 router.post('/', UserCtrl.createDocument );
 router.patch('/:id', UserCtrl.updateDocument );
 router.delete('/:id', UserCtrl.deleteDocument );
