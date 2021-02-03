@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 require("./config/connection");
 const user = require("./routes/user");
+const category = require("./routes/category");
 
 // express.json() is a inbuilt method in express to recognize the incoming Request Object as a JSON Object. This method is called as a middleware in your application
 app.use(express.json())
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: false }))
 
 
 app.use('/user', user);
+app.use('/category', category);
 app.use('/', (req, res)=>{
     res.send('welcome to express app');
 }); 

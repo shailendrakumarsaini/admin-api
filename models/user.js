@@ -20,7 +20,7 @@ userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-},{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
+},{ versionKey: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 const User = new mongoose.model('User', userSchema);
 module.exports = User;
