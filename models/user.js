@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Schema = mongoose.Schema;
 userSchema = new mongoose.Schema({
     name : {
         type : String,
@@ -20,6 +20,7 @@ userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
 },{ versionKey: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 const User = new mongoose.model('User', userSchema);

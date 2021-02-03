@@ -2,8 +2,13 @@ const User = require("../models/user")
 
 const findDocument = async (req, res)=>{
     try {
-        const result = await User.find();
-        res.status(200).send(result);
+        await User.find()
+        .populate({ path: 'category' })
+        // .populate({ path: 'category', select: ['name', 'active', 'created_at'] })
+        .exec((err, data)=>{
+            if (err) { res.status(400).send(err); };
+            res.status(200).send(data);
+        });
     } catch (error) {
        res.status(400).send(error); 
     }
