@@ -1,4 +1,5 @@
 const User = require("../models/user")
+const bcrypt = require('bcryptjs');
 
 const findDocument = async (req, res)=>{
     try {
@@ -50,5 +51,23 @@ const deleteDocument = async (req, res)=>{
     }
 }
 
+const login = async (req, res)=>{
+    try {
+        const user = await User.findOne({ email : req.body.email});
+        if(user && user.email === req.body.email){
+            const isMatch = await bcrypt.compare(req.body.password, user.password);
+            if(isMatch){
+                res.status(200).send('login successfully');
+            }else{
+                res.status(400).send('Password Mismatch');
+            }
+        }else{
+            res.status(400).send('Email not found');
+        }
+    } catch (error) {
+       res.status(400).send(error); 
+    }
+}
 
-module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument }
+
+module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument, login }
