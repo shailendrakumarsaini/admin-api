@@ -29,14 +29,14 @@ const findDocumentById = async (req, res)=>{
 const createDocument = async (req, res)=>{
     try {
         const user = new User(req.body);
-        const token = await user.generateAuthToken();
-        res.cookie('jwt', token, 
-            // { 
-            //     expires: new Date(Date.now() + 5000 ), // add expiry time
-            //     httponly: true, // client can't modify if true
-            //     // secure: true // make true for https connection
-            // }
-            );
+        // const token = await user.generateAuthToken();
+        // res.cookie('jwt', token, 
+        //     // { 
+        //     //     expires: new Date(Date.now() + 5000 ), // add expiry time
+        //     //     httponly: true, // client can't modify if true
+        //     //     // secure: true // make true for https connection
+        //     // }
+        //     );
         const result = await user.save();
         res.status(201).send(result);
     } catch (error) {
