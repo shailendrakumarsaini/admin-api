@@ -29,8 +29,15 @@ const findDocumentById = async (req, res)=>{
 const createDocument = async (req, res)=>{
     try {
         const user = new User(req.body);
-        const token  = await user.generateAuthToken();
-        const result = await User(req.body).save({new :true});
+        const token = await user.generateAuthToken();
+        res.cookie('jwt', token, 
+            // { 
+            //     expires: new Date(Date.now() + 5000 ), // add expiry time
+            //     httponly: true, // client can't modify if true
+            //     // secure: true // make true for https connection
+            // }
+            );
+        const result = await user.save();
         res.status(201).send(result);
     } catch (error) {
        res.status(400).send(error); 
@@ -61,7 +68,14 @@ const login = async (req, res)=>{
         if(user && user.email === req.body.email){
             const isMatch = await bcrypt.compare(req.body.password, user.password);
             if(isMatch){
-                const token = await jwt.sign({ _id: user._id }, config.secret_key);
+                const token = await user.generateAuthToken();
+                res.cookie('jwt', token, 
+                // { 
+                //     expires: new Date(Date.now() + 5000 ), // add expiry time
+                //     httponly: true, // client can't modify if true
+                //     // secure: true // make true for https connection
+                // }
+                );
                 res.status(200).send('login successfully');
             }else{
                 res.status(400).send('Password Mismatch');
