@@ -1,5 +1,7 @@
 const User = require("../models/user")
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config.json');
 
 const findDocument = async (req, res)=>{
     try {
@@ -26,7 +28,9 @@ const findDocumentById = async (req, res)=>{
 
 const createDocument = async (req, res)=>{
     try {
-        const result = await User(req.body).save();
+        const user = new User(req.body);
+        const token  = await user.generateAuthToken();
+        const result = await User(req.body).save({new :true});
         res.status(201).send(result);
     } catch (error) {
        res.status(400).send(error); 
@@ -57,6 +61,7 @@ const login = async (req, res)=>{
         if(user && user.email === req.body.email){
             const isMatch = await bcrypt.compare(req.body.password, user.password);
             if(isMatch){
+                const token = await jwt.sign({ _id: user._id }, config.secret_key);
                 res.status(200).send('login successfully');
             }else{
                 res.status(400).send('Password Mismatch');
