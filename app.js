@@ -17,8 +17,8 @@ app.use('/user', user);
 app.use('/category', category);
 
 // this auth middleware can be used for validation
-app.get('/test',auth, (req, res)=>{
-    res.send('test page');
+app.get('/dashboard',auth, (req, res)=>{
+    res.send('dashboard page loded');
 });
 app.use('/', (req, res)=>{
     res.send('welcome to express app');

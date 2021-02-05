@@ -88,5 +88,29 @@ const login = async (req, res)=>{
     }
 }
 
+const logout = async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((element, index, array) =>{
+            return element.token != req.token
+        });
+        res.clearCookie('jwt');
+        await req.user.save();
+        res.send('logout successfully');
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
 
-module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument, login }
+const logoutall = async (req, res) => {
+    try {
+        req.user.tokens = [];
+        res.clearCookie('jwt');
+        await req.user.save();
+        res.send('logout successfully from all devices');
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
+
+module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument, login, logout, logoutall }

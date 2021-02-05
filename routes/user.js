@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const UserCtrl = require("../controllers/user");
+const auth = require('../config/auth');
 
 router.get('/', UserCtrl.findDocument );
 router.get('/:id', UserCtrl.findDocumentById );
@@ -9,6 +10,8 @@ router.post('/', UserCtrl.createDocument );
 router.patch('/:id', UserCtrl.updateDocument );
 router.delete('/:id', UserCtrl.deleteDocument );
 router.post('/login', UserCtrl.login );
+router.post('/logout', auth, UserCtrl.logout);
+router.post('/logoutall', auth, UserCtrl.logoutall);
 
 // router.get('/', async (req, res)=>{
 //     try {
