@@ -22,7 +22,9 @@ set MONGODB_URI=mongodb://localhost:27017/admindb
 
 set SECRET_KEY=abcdefghijklmnopqrstuvwxyz0123456789
 
-
+## use windows terminal insteade of vs code terminal
 Step 4: Start the API by
 
 npm start
+
+
