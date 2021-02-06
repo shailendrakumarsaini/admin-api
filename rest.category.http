@@ -1,0 +1,25 @@
+###Get a list of all category
+GET http://localhost:3000/category
+
+### Create a category
+POST http://localhost:3000/category
+Content-Type: application/json
+
+{
+    "name" : "Database"
+}
+
+### GET a category by id
+GET http://localhost:3000/category/601e7a065a75e963541f0a07
+
+### Update a category by id
+PATCH  http://localhost:3000/category/601a7c5f8c9d53259c692bf4
+Content-Type: application/json
+
+{
+   "name" : "Frontend"
+}
+
+
+### Delete a category by id
+DELETE  http://localhost:3000/category/601e7a69bbc6f95488f7ed7b

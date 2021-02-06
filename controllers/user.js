@@ -2,8 +2,10 @@ const User = require("../models/user")
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.json');
+const createError = require('http-errors');
+const mongoose = require('mongoose');
 
-const findDocument = async (req, res)=>{
+const findDocument = async (req, res, next)=>{
     try {
         await User.find()
         .populate({ path: 'category' })
@@ -13,20 +15,30 @@ const findDocument = async (req, res)=>{
             res.status(200).send(data);
         });
     } catch (error) {
-       res.status(400).send(error); 
+        next(error);
     }
 }
 
-const findDocumentById = async (req, res)=>{
+const findDocumentById = async (req, res, next) => {
     try {
-        const result = await User.find({ _id : req.params.id});
+        // const result = await User.findOne({ _id : req.params.id});
+        const result = await User.findById(req.params.id);
+
+        // if user not exist for that id
+        if(!result) { 
+            throw createError(404, 'User does not exist.');
+        }
         res.status(200).send(result);
     } catch (error) {
-       res.status(400).send(error); 
+        // if id  doesn't exit or id which is not valid mongoose id
+        if (error instanceof mongoose.CastError) {
+            return next(createError(400, 'Invalid User id'));
+        }
+        next(error);
     }
 }
 
-const createDocument = async (req, res)=>{
+const createDocument = async (req, res, next)=>{
     try {
         const user = new User(req.body);
         // const token = await user.generateAuthToken();
@@ -40,29 +52,44 @@ const createDocument = async (req, res)=>{
         const result = await user.save();
         res.status(201).send(result);
     } catch (error) {
-       res.status(400).send(error); 
+        if (error.name === 'ValidationError') {
+            return next(createError(422, error.message));
+        }
+        next(error); 
     }
 }
 
-const updateDocument = async (req, res)=>{
+const updateDocument = async (req, res, next)=>{
     try {
         const result = await User.findByIdAndUpdate({ _id : req.params.id }, req.body, { new: true });
+        if(!result){
+            throw createError(404, 'User does not exist.');
+        }
         res.status(200).send(result);
     } catch (error) {
-       res.status(400).send(error); 
+        if (error instanceof mongoose.CastError) {
+            return next(createError(400, 'Invalid User id'));
+        }
+        next(error);
     }
 }
 
-const deleteDocument = async (req, res)=>{
+const deleteDocument = async (req, res, next)=>{
     try {
         const result = await User.findByIdAndDelete({ _id : req.params.id });
+        if(!result){
+            throw createError(404, 'User does not exist.');
+        }
         res.status(200).send(result);
     } catch (error) {
-       res.status(400).send(error); 
+        if (error instanceof mongoose.CastError) {
+            return next(createError(400, 'Invalid User id'));
+        }
+        next(error);
     }
 }
 
-const login = async (req, res)=>{
+const login = async (req, res, next)=>{
     try {
         const user = await User.findOne({ email : req.body.email});
         if(user && user.email === req.body.email){
@@ -81,14 +108,14 @@ const login = async (req, res)=>{
                 res.status(400).send('Password Mismatch');
             }
         }else{
-            res.status(400).send('Email not found');
+            throw createError(400, 'Email not found');
         }
     } catch (error) {
-       res.status(400).send(error); 
+        next(error);
     }
 }
 
-const logout = async (req, res) => {
+const logout = async (req, res, next) => {
     try {
         req.user.tokens = req.user.tokens.filter((element, index, array) =>{
             return element.token != req.token
@@ -97,18 +124,18 @@ const logout = async (req, res) => {
         await req.user.save();
         res.send('logout successfully');
     } catch (error) {
-        res.status(400).send(error);
+        next(error);
     }
 }
 
-const logoutall = async (req, res) => {
+const logoutall = async (req, res, next) => {
     try {
         req.user.tokens = [];
         res.clearCookie('jwt');
         await req.user.save();
         res.send('logout successfully from all devices');
     } catch (error) {
-        res.status(400).send(error);
+        next(error);
     }
 }
 

@@ -1,38 +1,70 @@
 const Category = require("../models/category");
+const createError = require('http-errors');
+const mongoose = require('mongoose');
 
-const findDocument = async(req, res)=>{
+const findDocument = async(req, res, next)=>{
     try {
-        const result = await Category.find();
-        res.send(result);
+        const category = await Category.find();
+        res.send(category);
     } catch (error) {
-        res.status(400).send(error);
+        next(error);
     }
 }
 
-const createDocument = async(req, res)=>{
+const findDocumentById = async (req, res, next)=>{
     try {
-        const result = await Category(req.body).save();
-        res.send(result);
+        const category = await Category.find({ _id : req.params.id});
+        if(!category){
+            throw createError(404, 'Category does not exist.');
+        }
+        res.send(category);
     } catch (error) {
-        res.status(400).send(error);
+        if (error instanceof mongoose.CastError) {
+            return next(createError(400, 'Invalid Category id'));
+        }
+        next(error);
     }
 }
-const updateDocument = async(req, res)=>{
+
+const createDocument = async(req, res, next)=>{
     try {
-        const result = await Category.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
-        res.send(result);
+        const category = await Category(req.body).save();
+        res.send(category);
     } catch (error) {
-        res.status(400).send(error);
+        if (error.name === 'ValidationError') {
+            return next(createError(422, error.message));
+        }
+        next(error);
     }
 }
-const deleteDocument = async(req, res)=>{
+const updateDocument = async(req, res, next)=>{
     try {
-        const result = await Category.findByIdAndDelete({ _id: req.params.id });
-        res.send(result);
+        const category = await Category.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
+        if(!category){
+            throw createError(404, 'Category does not exist.');
+        }
+        res.send(category);
     } catch (error) {
-        res.status(400).send(error);
+        if (error instanceof mongoose.CastError) {
+            return next(createError(400, 'Invalid Category id'));
+        }
+        next(error);
+    }
+}
+const deleteDocument = async(req, res, next)=>{
+    try {
+        const category = await Category.findByIdAndDelete({ _id: req.params.id });
+        if(!category){
+            throw createError(404, 'Category does not exist.');
+        }
+        res.send(category);
+    } catch (error) {
+        if (error instanceof mongoose.CastError) {
+            return next(createError(400, 'Invalid Category id'));
+        }
+        next(error);
     }
 }
 
 
-module.exports = { findDocument, createDocument, updateDocument, deleteDocument };
+module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument };

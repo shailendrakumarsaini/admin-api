@@ -6,6 +6,7 @@ const user = require("./routes/user");
 const category = require("./routes/category");
 const cookieParser = require('cookie-parser');
 const auth = require('./config/auth');
+const createError = require('http-errors');
 
 // express.json() is a inbuilt method in express to recognize the incoming Request Object as a JSON Object. This method is called as a middleware in your application
 app.use(express.json())
@@ -20,9 +21,29 @@ app.use('/category', category);
 app.get('/dashboard',auth, (req, res)=>{
     res.send('dashboard page loded');
 });
-app.use('/', (req, res)=>{
-    res.send('welcome to express app');
-}); 
+
+
+//404 handler and pass to error handler
+app.use((req, res, next) => {
+    /*
+    const err = new Error('Not found');
+    err.status = 404;
+    next(err);
+    */
+    // You can use the above code if your not using the http-errors module
+    next(createError(404, 'Not found'));
+});
+
+//Error handler
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send({
+      error: {
+        status: err.status || 500,
+        message: err.message
+      }
+    });
+});
 
 app.listen(port, ()=>{
     console.log(`App listening at http://localhost:${port}`)
