@@ -9,10 +9,13 @@ npm install
 Step 3: Put your credentials in the .env file.
 
 PORT=3000
+
 MONGODB_URI=YOUR MONGODB URI
+
 SECRET_KEY=YOUR SECRET_KEY
 
-ex.=>
+for example=>
+
 set PORT=4000
 
 set MONGODB_URI=mongodb://localhost:27017/admindb
