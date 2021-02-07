@@ -36,7 +36,7 @@ set SECRET_KEY=abcdefghijklmnopqrstuvwxyz0123456789
 
 ## Author
 
-- [**Shailendra Kumar Saini**]
+**Shailendra Kumar Saini**
 
 ## License
 
