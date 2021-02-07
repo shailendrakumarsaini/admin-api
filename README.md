@@ -34,4 +34,11 @@ set SECRET_KEY=abcdefghijklmnopqrstuvwxyz0123456789
 
 `npm start`
 
+## Author
+
+- [**Shailendra Kumar Saini**]
+
+## License
+
+This project is licensed under the ISC License.
 
