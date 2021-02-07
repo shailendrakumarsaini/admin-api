@@ -24,9 +24,9 @@ SECRET_KEY=YOUR SECRET_KEY
 ## for example=>
 
 ```bash
-`set PORT=4000`
-`set MONGODB_URI=mongodb://localhost:27017/admindb`
-`set SECRET_KEY=abcdefghijklmnopqrstuvwxyz0123456789`
+set PORT=4000
+set MONGODB_URI=mongodb://localhost:27017/admindb
+set SECRET_KEY=abcdefghijklmnopqrstuvwxyz0123456789
 ```
 
 ## Use Windows CMD/terminal insteade of VS code terminal
