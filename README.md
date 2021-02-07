@@ -14,15 +14,20 @@
 
 ## Step 3: Put your credentials in the .env file.
 
-`PORT=3000`
-`MONGODB_URI=YOUR MONGODB URI`
-`SECRET_KEY=YOUR SECRET_KEY`
+
+```bash
+PORT=3000
+MONGODB_URI=YOUR MONGODB URI
+SECRET_KEY=YOUR SECRET_KEY
+```
 
 ## for example=>
 
+```bash
 `set PORT=4000`
 `set MONGODB_URI=mongodb://localhost:27017/admindb`
 `set SECRET_KEY=abcdefghijklmnopqrstuvwxyz0123456789`
+```
 
 ## Use Windows CMD/terminal insteade of VS code terminal
 ## Step 4: Start the API by
