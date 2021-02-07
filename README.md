@@ -13,10 +13,8 @@
 
 ## Step 3: Put your credentials in the .env file.
 
-PORT=3000
-
-MONGODB_URI=YOUR MONGODB URI
-
+PORT=3000,
+MONGODB_URI=YOUR MONGODB URI,
 SECRET_KEY=YOUR SECRET_KEY
 
 for example=>
@@ -28,6 +26,6 @@ for example=>
 ## Use windows terminal insteade of vs code terminal
 ## Step 4: Start the API by
 
-`npm install`
+`npm start`
 
 
