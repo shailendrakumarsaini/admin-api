@@ -8,9 +8,10 @@ const category = require("./routes/category");
 const cookieParser = require('cookie-parser');
 const auth = require('./config/auth');
 const createError = require('http-errors');
-
+const cors = require('cors')
 
 connection();
+app.use(cors())
 // express.json() is a inbuilt method in express to recognize the incoming Request Object as a JSON Object. This method is called as a middleware in your application
 app.use(express.json())
 // The express.urlencoded() function is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads
