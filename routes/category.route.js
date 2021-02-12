@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CategoryCtrl = require('../controllers/category');
+const CategoryCtrl = require('../controllers/category.controller');
 
 router.get('/', CategoryCtrl.findDocument);
 router.get('/:id', CategoryCtrl.findDocumentById);

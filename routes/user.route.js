@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user");
-const UserCtrl = require("../controllers/user");
+const User = require("../models/user.model");
+const UserCtrl = require("../controllers/user.controller");
 const auth = require('../config/auth');
 
 router.get('/', UserCtrl.findDocument );

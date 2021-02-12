@@ -9,8 +9,8 @@ const cors = require('cors');
 
 const connection = require("./config/connection");
 const auth = require('./config/auth');
-const user = require("./routes/user");
-const category = require("./routes/category");
+const user = require("./routes/user.route");
+const category = require("./routes/category.route");
 const course = require('./routes/course.route');
 
 connection();
