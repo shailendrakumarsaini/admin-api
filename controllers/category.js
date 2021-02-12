@@ -13,7 +13,7 @@ const findDocument = async(req, res, next)=>{
 
 const findDocumentById = async (req, res, next)=>{
     try {
-        const category = await Category.find({ _id : req.params.id});
+        const category = await Category.findById( req.params.id);
         if(!category){
             throw createError(404, 'Category does not exist.');
         }
@@ -29,7 +29,7 @@ const findDocumentById = async (req, res, next)=>{
 const createDocument = async(req, res, next)=>{
     try {
         const category = await Category(req.body).save();
-        res.send(category);
+        res.status(201).json({ success : true, message: 'Category Created Successfully', data : category });
     } catch (error) {
         if (error.name === 'ValidationError') {
             return next(createError(422, error.message));
@@ -43,7 +43,7 @@ const updateDocument = async(req, res, next)=>{
         if(!category){
             throw createError(404, 'Category does not exist.');
         }
-        res.send(category);
+        res.status(200).json({ success : true, message: 'Category Updated Successfully', data : category });
     } catch (error) {
         if (error instanceof mongoose.CastError) {
             return next(createError(400, 'Invalid Category id'));
@@ -57,7 +57,7 @@ const deleteDocument = async(req, res, next)=>{
         if(!category){
             throw createError(404, 'Category does not exist.');
         }
-        res.send(category);
+        res.status(200).json({ success : true, message: 'Category Deleted Successfully', data : category });
     } catch (error) {
         if (error instanceof mongoose.CastError) {
             return next(createError(400, 'Invalid Category id'));
