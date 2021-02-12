@@ -1,1 +1,27 @@
+###Get a list of all course
 GET http://localhost:3000/course
+
+### GET a course by id
+GET http://localhost:3000/course/602625afaf7924098ceca209
+
+### Create a course
+POST http://localhost:3000/course
+Content-Type: application/json
+
+{
+    "name":"test",
+    "duration":120,
+    "category":"6025103ec0e94b3f080c30b3"
+}
+
+### Update a course by id
+PATCH  http://localhost:3000/course/601a7c5f8c9d53259c692bf4
+Content-Type: application/json
+
+{
+   "name" : "Frontend"
+}
+
+
+### Delete a course by id
+DELETE  http://localhost:3000/course/601e7a69bbc6f95488f7ed7b

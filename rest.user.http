@@ -1,6 +1,9 @@
 ###Get a list of all users
 GET http://localhost:3000/user
 
+### GET a user by id
+GET http://localhost:3000/user/601cdd6cef46df3190cfdf4c
+
 ### Create a users
 POST http://localhost:3000/user
 Content-Type: application/json
@@ -11,9 +14,6 @@ Content-Type: application/json
     "phone":"1234567891",
     "password":"1234"
 }
-
-### GET a user by id
-GET http://localhost:3000/user/601e6edc689a566714bf3e0c
 
 ### Update a users by id
 PATCH  http://localhost:3000/user/601e75b19c786b0ca035be5f
