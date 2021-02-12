@@ -13,16 +13,19 @@ userSchema = new mongoose.Schema({
     email: {
         type : String,
         required : true,
+        lowercase: true,
         unique:[ true, 'email should be unique']
     },
     phone:{
         type : String,
         required : true,
-        minlength:10
+        minlength:10,
+        maxlength :10
     },
     password:{
         type : String,
-        required : true
+        required : true,
+        minlength: 4
     },
     category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     tokens :[{ 
