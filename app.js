@@ -2,13 +2,16 @@ require('dotenv').config()
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+const cookieParser = require('cookie-parser');
+const createError = require('http-errors');
+const cors = require('cors');
+
+
 const connection = require("./config/connection");
+const auth = require('./config/auth');
 const user = require("./routes/user");
 const category = require("./routes/category");
-const cookieParser = require('cookie-parser');
-const auth = require('./config/auth');
-const createError = require('http-errors');
-const cors = require('cors')
+const course = require('./routes/course.route');
 
 connection();
 app.use(cors())
@@ -20,7 +23,7 @@ app.use(cookieParser())
 
 app.use('/user', user);
 app.use('/category', category);
-
+app.use('/course', course);
 // this auth middleware can be used for validation
 app.get('/dashboard',auth, (req, res)=>{
     res.send('dashboard page loded');
