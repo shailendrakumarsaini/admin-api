@@ -50,7 +50,7 @@ const createDocument = async (req, res, next)=>{
         //     // }
         //     );
         const result = await user.save();
-        res.status(201).send(result);
+        res.status(201).json({ success : true, message: 'User Created Successfully', data : result });
     } catch (error) {
         if (error.name === 'ValidationError') {
             return next(createError(422, error.message));
@@ -65,7 +65,7 @@ const updateDocument = async (req, res, next)=>{
         if(!result){
             throw createError(404, 'User does not exist.');
         }
-        res.status(200).send(result);
+        res.status(200).json({ success : true, message: 'User Updated Successfully', data : result });
     } catch (error) {
         if (error instanceof mongoose.CastError) {
             return next(createError(400, 'Invalid User id'));
@@ -80,7 +80,7 @@ const deleteDocument = async (req, res, next)=>{
         if(!result){
             throw createError(404, 'User does not exist.');
         }
-        res.status(200).send(result);
+        res.status(200).json({ success : true, message: 'User Deleted Successfully', data : result });
     } catch (error) {
         if (error instanceof mongoose.CastError) {
             return next(createError(400, 'Invalid User id'));
@@ -96,16 +96,16 @@ const login = async (req, res, next)=>{
             const isMatch = await bcrypt.compare(req.body.password, user.password);
             if(isMatch){
                 const token = await user.generateAuthToken();
-                res.cookie('jwt', token, 
-                // { 
-                //     expires: new Date(Date.now() + 5000 ), // add expiry time
-                //     httponly: true, // client can't modify if true
-                //     // secure: true // make true for https connection
-                // }
-                );
-                res.status(200).send('login successfully');
+                // res.cookie('jwt', token, 
+                // // { 
+                // //     expires: new Date(Date.now() + 5000 ), // add expiry time
+                // //     httponly: true, // client can't modify if true
+                // //     // secure: true // make true for https connection
+                // // }
+                // );
+                res.status(200).json({success : true, token, message: 'login successfully'});
             }else{
-                res.status(400).send('Password Mismatch');
+                res.status(400).json({success : false, message: 'Password Mismatch'});
             }
         }else{
             throw createError(400, 'Email not found');
