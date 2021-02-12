@@ -7,8 +7,8 @@ const findDocuments = async (req, res, next) => {
         await Course.find()
         .populate({ path: 'category' })
         .exec((err, data)=>{
-            if (err) { return next(createError(400, err.message)); };
-            res.status(200).send(data); 
+            if (err) { res.status(400).send(err.message); };
+            res.status(200).send(data);
         });
     } catch (error) {
         next(error);

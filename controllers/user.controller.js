@@ -11,7 +11,7 @@ const findDocument = async (req, res, next)=>{
         .populate({ path: 'category' })
         // .populate({ path: 'category', select: ['name', 'active', 'created_at'] })
         .exec((err, data)=>{
-            if (err) { res.status(400).send(err); };
+            if (err) { res.status(400).send(err.message); };
             res.status(200).send(data);
         });
     } catch (error) {
