@@ -26,8 +26,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 app.use('/user', user);
-app.use('/category', category);
-app.use('/course', course);
+app.use('/category', auth, category);
+app.use('/course', auth, course);
 // this auth middleware can be used for validation
 app.get('/dashboard',auth, (req, res)=>{
     res.json({success : false, message : 'Dashboard Page Loaded' });

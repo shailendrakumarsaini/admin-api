@@ -5,7 +5,8 @@ const config = require("../config/config.json");
 
 const auth = async (req, res, next) => {
     try {
-        const userToken = req.cookies.jwt;
+        // const userToken = req.cookies.jwt;
+        const userToken = req.headers.token;
         // if this token not verified then it will throw error
         const verifyUser = await jwt.verify(userToken, config.secret_key);
         const user = await User.findOne({_id: verifyUser._id });

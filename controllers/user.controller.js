@@ -96,16 +96,16 @@ const login = async (req, res, next)=>{
             const isMatch = await bcrypt.compare(req.body.password, user.password);
             if(isMatch){
                 const token = await user.generateAuthToken();
-                res.cookie('jwt', token, 
-                    { 
-                        expires: new Date(Date.now() + 50000 ), // add expiry time
-                        httponly: true, // client can't modify if true
-                        // Domain:'http://localhost:4200',
-                        // Path:'/',
-                        // visited: true
-                        // secure: true // make true for https connection
-                    }
-                );
+                // res.cookie('jwt', token, 
+                //     { 
+                //         expires: new Date(Date.now() + 50000 ), // add expiry time
+                //         httponly: true, // client can't modify if true
+                //         // Domain:'http://localhost:4200',
+                //         // Path:'/',
+                //         // visited: true
+                //         // secure: true // make true for https connection
+                //     }
+                // );
                 res.status(200).json({success : true, token, message: 'login successfully'});
             }else{
                 res.status(400).json({success : false, message: 'Password Mismatch'});
@@ -123,9 +123,9 @@ const logout = async (req, res, next) => {
         req.user.tokens = req.user.tokens.filter((element, index, array) =>{
             return element.token != req.token
         });
-        res.clearCookie('jwt');
+        // res.clearCookie('jwt');
         await req.user.save();
-        res.send('logout successfully');
+        res.status(200).json({success : true, message: 'Logout successfully'});
     } catch (error) {
         next(error);
     }
@@ -134,9 +134,9 @@ const logout = async (req, res, next) => {
 const logoutall = async (req, res, next) => {
     try {
         req.user.tokens = [];
-        res.clearCookie('jwt');
+        // res.clearCookie('jwt');
         await req.user.save();
-        res.send('logout successfully from all devices');
+        res.status(200).json({success : true, message: 'Logout successfully from all devices'});
     } catch (error) {
         next(error);
     }
