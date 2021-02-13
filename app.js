@@ -14,7 +14,11 @@ const category = require("./routes/category.route");
 const course = require('./routes/course.route');
 
 connection();
-app.use(cors())
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  credentials: true
+}
+app.use(cors(corsOptions));
 // express.json() is a inbuilt method in express to recognize the incoming Request Object as a JSON Object. This method is called as a middleware in your application
 app.use(express.json())
 // The express.urlencoded() function is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads
