@@ -30,7 +30,7 @@ app.use('/category', category);
 app.use('/course', course);
 // this auth middleware can be used for validation
 app.get('/dashboard',auth, (req, res)=>{
-    res.send('dashboard page loded');
+    res.json({success : false, message : 'Dashboard Page Loaded' });
 });
 
 
