@@ -1,11 +1,11 @@
 require('dotenv').config()
 const express = require("express");
-const app = express();
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const cors = require('cors');
-
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' });
 
 const connection = require("./config/connection");
 const auth = require('./config/auth');
@@ -13,6 +13,7 @@ const user = require("./routes/user.route");
 const category = require("./routes/category.route");
 const course = require('./routes/course.route');
 
+const app = express();
 connection();
 const corsOptions = {
   origin: 'http://localhost:4200',
