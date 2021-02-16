@@ -27,6 +27,10 @@ userSchema = new mongoose.Schema({
         required : true,
         minlength: 4
     },
+    image:{
+        type : String,
+        default: null
+    },
     category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     tokens :[{ 
         token : {

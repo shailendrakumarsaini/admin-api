@@ -41,7 +41,7 @@ const findDocumentById = async (req, res, next) => {
 
 const createDocument = async (req, res, next)=>{
     try {
-        const user = new User(req.body);
+        const userObj = new User(req.body);
         // const token = await user.generateAuthToken();
         // res.cookie('jwt', token, 
         //     // { 
@@ -50,8 +50,12 @@ const createDocument = async (req, res, next)=>{
         //     //     // secure: true // make true for https connection
         //     // }
         //     );
-        const result = await user.save();
-        res.status(201).json({ success : true, message: 'User Created Successfully', data : result });
+        if(req.file){
+            const result = await cloudinary.v2.uploader.upload(req.file.path);
+            userObj.image = result.secure_url;
+        }
+        const user = await userObj.save();
+        res.status(201).json({ success : true, message: 'User Created Successfully', data : user });
     } catch (error) {
         if (error.name === 'ValidationError') {
             return next(createError(422, error.message));
