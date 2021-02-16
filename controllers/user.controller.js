@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config.json');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
+const cloudinary = require('cloudinary');
 
 const findDocument = async (req, res, next)=>{
     try {
@@ -142,5 +143,15 @@ const logoutall = async (req, res, next) => {
     }
 }
 
+const uploadImage = async (req, res, next)=>{
+    try {
+        console.log(req.file);
+        const result = await cloudinary.v2.uploader.upload(req.file.path)
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+}
 
-module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument, login, logout, logoutall }
+
+module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument, login, logout, logoutall, uploadImage }

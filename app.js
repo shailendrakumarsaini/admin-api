@@ -4,8 +4,7 @@ const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const cors = require('cors');
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' });
+require('./config/cloudinary');
 
 const connection = require("./config/connection");
 const auth = require('./config/auth');
