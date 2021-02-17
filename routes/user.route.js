@@ -10,6 +10,7 @@ router.get('/:id', UserCtrl.findDocumentById );
 router.post('/', upload.single('image'), UserCtrl.createDocument );
 router.patch('/:id', upload.single('image'), UserCtrl.updateDocument );
 router.delete('/:id', UserCtrl.deleteDocument );
+router.post('/verification', UserCtrl.verification );
 router.post('/login', UserCtrl.login );
 router.post('/logout', auth, UserCtrl.logout);
 router.post('/logoutall', auth, UserCtrl.logoutall);

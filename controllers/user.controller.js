@@ -98,6 +98,14 @@ const deleteDocument = async (req, res, next)=>{
     }
 }
 
+const verification = async (req, res, next) => {
+    try {
+        res.status(200).json({success : true, message: 'Verification route works!'});
+    } catch (error) {
+        next(error);
+    }
+}
+
 const login = async (req, res, next)=>{
     try {
         const user = await User.findOne({ email : req.body.email});
@@ -162,4 +170,15 @@ const uploadImage = async (req, res, next)=>{
 }
 
 
-module.exports = { findDocument, findDocumentById, createDocument, updateDocument, deleteDocument, login, logout, logoutall, uploadImage }
+module.exports = { 
+    findDocument, 
+    findDocumentById, 
+    createDocument, 
+    updateDocument, 
+    deleteDocument, 
+    verification,
+    login, 
+    logout, 
+    logoutall, 
+    uploadImage 
+}
