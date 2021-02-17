@@ -1,7 +1,14 @@
 {
     "db": {
-        "url": "mongodb+srv://osteen:osteen@osteen-sqsvi.gcp.mongodb.net/test?retryWrites=true&w=majority",
+        "url": "mongodb+srv://sainiuser:sainipassword@cluster0.pdcb8.mongodb.net/admindb?retryWrites:true&w:majority",
         "urlDev": "mongodb://localhost:27017/admindb"
     },
-    "secret_key":"abcdefghijklmnopqrstuvwxyz0123456789"
+    "secret_key":"abcdefghijklmnopqrstuvwxyz0123456789",
+    "PORT":3000,
+    "MONGODB_URI":"mongodb://localhost:27017/admindb",
+    "MONGODB_URI_LIVE":"mongodb+srv://sainiuser:sainipassword@cluster0.pdcb8.mongodb.net/admindb?retryWrites:true&w:majority",
+    "SECRET_KEY":"abcdefghijklmnopqrstuvwxyz0123456789",
+    "CLOUD_NAME":"dprref53b",
+    "API_ID":"569283951127683",
+    "API_SECRET":"sz8N5E0PFirG6Oq9PMTtaWh1OQ0"
 }
