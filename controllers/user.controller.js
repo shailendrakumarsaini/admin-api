@@ -66,6 +66,10 @@ const createDocument = async (req, res, next)=>{
 
 const updateDocument = async (req, res, next)=>{
     try {
+        if(req.file){
+            const result = await cloudinary.v2.uploader.upload(req.file.path);
+            req.body.image = result.secure_url;
+        }
         const result = await User.findByIdAndUpdate({ _id : req.params.id }, req.body, { new: true });
         if(!result){
             throw createError(404, 'User does not exist.');
@@ -150,7 +154,7 @@ const logoutall = async (req, res, next) => {
 const uploadImage = async (req, res, next)=>{
     try {
         console.log(req.file);
-        const result = await cloudinary.v2.uploader.upload(req.file.path)
+        const result = await cloudinary.v2.uploader.upload(req.file.path);
         res.status(200).json(result);
     } catch (error) {
         next(error);
