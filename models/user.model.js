@@ -7,12 +7,12 @@ const jwt = require('jsonwebtoken');
 userSchema = new mongoose.Schema({
     name : {
         type : String,
-        required : true,
+        required : 'name field is required',
         minlength : 3
     },
     email: {
         type : String,
-        required : true,
+        required : 'email field is required',
         lowercase: true,
         unique:[ true, 'email should be unique']
     },
@@ -37,7 +37,12 @@ userSchema = new mongoose.Schema({
             type : String,
             required : true
         } 
-    }]
+    }],
+    is_active :{
+        type : Boolean,
+        required : true,
+        default : false
+    }
 },{ versionKey: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 

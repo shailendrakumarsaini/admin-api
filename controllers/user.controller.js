@@ -5,6 +5,16 @@ const config = require('../config/config.json');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
+const nodemailer = require("nodemailer");
+
+const smtpTransport = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    auth: {
+        user: config.email.user,
+        pass: config.email.pass
+    }
+});
 
 const findDocument = async (req, res, next)=>{
     try {
@@ -55,7 +65,23 @@ const createDocument = async (req, res, next)=>{
             userObj.image = result.secure_url;
         }
         const user = await userObj.save();
-        res.status(201).json({ success : true, message: 'User Created Successfully', data : user });
+        if(user){
+            var verificationLink = `${config.domain}/user/verification?email=${user.email}`;
+            var mailOptions = {
+                to: 'sainishailendra1996@gmail.com',
+                subject: 'Welcome greeting from Osteen',
+                html: `<p> Hello  ${user.name}  !</p> \n <p>Your login details as below. </p> \n <p> UserName:  ${ user.email} </p> \n <p> Password:  ${req.body.password} </p> \n
+                        <p> Please complete you verification by clicking on the link:  ${verificationLink} </p> \n`
+            }
+            smtpTransport.sendMail(mailOptions, function (error, response) {
+                if (error) {
+                    res.status(400).json({ success : false, message: 'Invalid User Logins For Sending Email' });
+                } else {
+                    res.status(201).json({ success : true, message: 'User Created Successfully', data : user });
+                }
+            });
+        }
+        
     } catch (error) {
         if (error.name === 'ValidationError') {
             return next(createError(422, error.message));
@@ -100,8 +126,19 @@ const deleteDocument = async (req, res, next)=>{
 
 const verification = async (req, res, next) => {
     try {
-        res.status(200).json({success : true, message: 'Verification route works!'});
+        const email = req.query.email;
+        const user = await User.findOne({ email: email });
+        if(user){
+            const result  = await User.update({ _id: user._id }, { is_active : true });
+            res.send('Your Email Verified Successfully. Please login');
+        }else{
+            throw createError(404, 'User does not exist.'); 
+        }
+        
     } catch (error) {
+        if (error instanceof mongoose.CastError) {
+            return next(createError(400, 'Invalid User id'));
+        }
         next(error);
     }
 }
@@ -110,22 +147,26 @@ const login = async (req, res, next)=>{
     try {
         const user = await User.findOne({ email : req.body.email});
         if(user && user.email === req.body.email){
-            const isMatch = await bcrypt.compare(req.body.password, user.password);
-            if(isMatch){
-                const token = await user.generateAuthToken();
-                // res.cookie('jwt', token, 
-                //     { 
-                //         expires: new Date(Date.now() + 50000 ), // add expiry time
-                //         httponly: true, // client can't modify if true
-                //         // Domain:'http://localhost:4200',
-                //         // Path:'/',
-                //         // visited: true
-                //         // secure: true // make true for https connection
-                //     }
-                // );
-                res.status(200).json({success : true, token, message: 'login successfully'});
+            if(!user.is_active){
+                res.status(400).json({success : false, message: 'Email not Verified'});
             }else{
-                res.status(400).json({success : false, message: 'Password Mismatch'});
+                const isMatch = await bcrypt.compare(req.body.password, user.password);
+                if(isMatch){
+                    const token = await user.generateAuthToken();
+                    // res.cookie('jwt', token, 
+                    //     { 
+                    //         expires: new Date(Date.now() + 50000 ), // add expiry time
+                    //         httponly: true, // client can't modify if true
+                    //         // Domain:'http://localhost:4200',
+                    //         // Path:'/',
+                    //         // visited: true
+                    //         // secure: true // make true for https connection
+                    //     }
+                    // );
+                    res.status(200).json({success : true, token, message: 'login successfully'});
+                }else{
+                    res.status(400).json({success : false, message: 'Password Mismatch'});
+                }
             }
         }else{
             throw createError(400, 'Email not found');

@@ -1,4 +1,9 @@
 {
+    "domain":"http://localhost:3000",
+    "email": {
+        "user": "facksaini123456789@gmail.com",
+        "pass": "HackSainiG"
+    },
     "db": {
         "url": "mongodb+srv://sainiuser:sainipassword@cluster0.pdcb8.mongodb.net/admindb?retryWrites:true&w:majority",
         "urlDev": "mongodb://localhost:27017/admindb"
