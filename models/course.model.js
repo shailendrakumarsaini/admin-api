@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CourseSchema = new mongoose.Schema({
     name:{
         type:String,
-        required: true,
+        required: 'name field is required',
         unique: true,
         minlength: 3
     },
@@ -17,7 +17,7 @@ const CourseSchema = new mongoose.Schema({
     },
     duration :{
         type:Number,
-        required:true
+        required:'duration field is required'
     }
 },{ versionKey: false, timestamps : { createdAt : 'created_at', updatedAt : 'updated_at' } });
 

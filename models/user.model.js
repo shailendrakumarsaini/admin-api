@@ -18,13 +18,13 @@ userSchema = new mongoose.Schema({
     },
     phone:{
         type : String,
-        required : true,
+        required : 'phone field is required',
         minlength:10,
         maxlength :10
     },
     password:{
         type : String,
-        required : true,
+        required : 'password field is required',
         minlength: 4
     },
     image:{
@@ -35,12 +35,12 @@ userSchema = new mongoose.Schema({
     tokens :[{ 
         token : {
             type : String,
-            required : true
+            required : 'token field is required'
         } 
     }],
     is_active :{
         type : Boolean,
-        required : true,
+        required : 'is_active field is required',
         default : false
     }
 },{ versionKey: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
