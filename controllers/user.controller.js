@@ -148,7 +148,7 @@ const login = async (req, res, next)=>{
         const user = await User.findOne({ email : req.body.email});
         if(user && user.email === req.body.email){
             if(!user.is_active){
-                res.status(400).json({success : false, message: 'Email not Verified'});
+                res.status(400).json({success : false, message: 'Email not yet Verified'});
             }else{
                 const isMatch = await bcrypt.compare(req.body.password, user.password);
                 if(isMatch){
@@ -169,7 +169,7 @@ const login = async (req, res, next)=>{
                 }
             }
         }else{
-            throw createError(400, 'Email not found');
+            throw createError(400, 'Invalid Email');
         }
     } catch (error) {
         next(error);
