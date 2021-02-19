@@ -5,7 +5,8 @@
         "pass": "HackSainiG"
     },
     "db": {
-        "url": "mongodb+srv://sainiuser:sainipassword@cluster0.pdcb8.mongodb.net/admindb?retryWrites:true&w:majority",
+        "url1": "mongodb+srv://saini:kumar@cluster0.pdcb8.mongodb.net/admindb?retryWrites=true&w=majority",
+        "url2": "mongodb+srv://sainiuser:sainipassword@cluster0.pdcb8.mongodb.net/admindb?retryWrites:true&w:majority",
         "urlDev": "mongodb://localhost:27017/admindb"
     },
     "secret_key":"abcdefghijklmnopqrstuvwxyz0123456789",
