@@ -5,14 +5,13 @@
         "pass": "HackSainiG"
     },
     "db": {
-        "url1": "mongodb+srv://saini:kumar@cluster0.pdcb8.mongodb.net/admindb?retryWrites=true&w=majority",
-        "url2": "mongodb+srv://sainiuser:sainipassword@cluster0.pdcb8.mongodb.net/admindb?retryWrites:true&w:majority",
+        "urlLive": "mongodb+srv://saini:kumar@cluster0.pdcb8.mongodb.net/admindb?retryWrites=true&w=majority",
         "urlDev": "mongodb://localhost:27017/admindb"
     },
     "secret_key":"abcdefghijklmnopqrstuvwxyz0123456789",
     "PORT":3000,
     "MONGODB_URI":"mongodb://localhost:27017/admindb",
-    "MONGODB_URI_LIVE":"mongodb+srv://sainiuser:sainipassword@cluster0.pdcb8.mongodb.net/admindb?retryWrites:true&w:majority",
+    "MONGODB_URI_LIVE":"mongodb+srv://saini:kumar@cluster0.pdcb8.mongodb.net/admindb?retryWrites=true&w=majority",
     "SECRET_KEY":"abcdefghijklmnopqrstuvwxyz0123456789",
     "CLOUD_NAME":"dprref53b",
     "API_ID":"569283951127683",
