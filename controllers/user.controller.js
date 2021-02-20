@@ -66,7 +66,7 @@ const createDocument = async (req, res, next)=>{
         }
         const user = await userObj.save();
         if(user){
-            var verificationLink = `${config.domain}/user/verification?email=${user.email}`;
+            var verificationLink = `${config.DOMAIN}/user/verification?email=${user.email}`;
             var mailOptions = {
                 to: 'sainishailendra1996@gmail.com',
                 subject: 'Welcome greeting from Osteen',
