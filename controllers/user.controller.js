@@ -73,6 +73,10 @@ const createDocument = async (req, res, next)=>{
                 html: `<p> Hello  ${user.name}  !</p> \n <p>Your login details as below. </p> \n <p> UserName:  ${ user.email} </p> \n <p> Password:  ${req.body.password} </p> \n
                         <p> Please complete you verification by clicking on the link:  ${verificationLink} </p> \n`
             }
+            console.log('auth',{auth: {
+                user: config.EMAIL.USERNAME,
+                pass: config.EMAIL.PASSWORD
+            }});
             smtpTransport.sendMail(mailOptions, function (error, response) {
                 if (error) {
                     res.status(400).json({ success : false, message: 'Invalid User Logins For Sending Email' });
