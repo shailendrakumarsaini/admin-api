@@ -4,11 +4,6 @@
         "user": "facksaini123456789@gmail.com",
         "pass": "HackSainiG"
     },
-    "db": {
-        "urlLive": "mongodb+srv://saini:kumar@cluster0.pdcb8.mongodb.net/admindb?retryWrites=true&w=majority",
-        "urlDev": "mongodb://localhost:27017/admindb"
-    },
-    "secret_key":"abcdefghijklmnopqrstuvwxyz0123456789",
     "PORT":3000,
     "MONGODB_URI":"mongodb://localhost:27017/admindb",
     "MONGODB_URI_LIVE":"mongodb+srv://saini:kumar@cluster0.pdcb8.mongodb.net/admindb?retryWrites=true&w=majority",
