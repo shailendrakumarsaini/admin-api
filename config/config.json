@@ -1,5 +1,9 @@
 {
     "domain":"http://localhost:3000",
+    "EMAIL":{
+        "USERNAME":"facksaini123456789@gmail.com",
+        "PASSWORD":"HackSainiG"
+    },
     "email": {
         "user": "facksaini123456789@gmail.com",
         "pass": "HackSainiG"

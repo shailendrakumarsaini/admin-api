@@ -11,8 +11,8 @@ const smtpTransport = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
     auth: {
-        user: config.email.user,
-        pass: config.email.pass
+        user: config.EMAIL.USERNAME,
+        pass: config.EMAIL.PASSWORD
     }
 });
 
