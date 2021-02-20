@@ -60,4 +60,9 @@ app.use((err, req, res, next) => {
 const PORT  = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
   console.log(`App listening at port : ${PORT}`);
+  console.log(`MONGODB_URI_LIVE : ${process.env.MONGODB_URI_LIVE}`);
+  console.log(`SECRET_KEY : ${process.env.SECRET_KEY}`);
+  console.log(`CLOUD_NAME : ${process.env.CLOUD_NAME}`);
+  console.log(`API_ID : ${process.env.API_ID}`);
+  console.log(`API_SECRET : ${process.env.API_SECRET}`);
 })

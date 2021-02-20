@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "set PORT=3000 MONGODB_URI_LIVE=mongodb+srv://saini:kumar@cluster0.pdcb8.mongodb.net/admindb?retryWrites=true&w=majority SECRET_KEY=abcdefghijklmnopqrstuvwxyz0123456789 CLOUD_NAME=dprref53b API_ID=569283951127683 API_SECRET=sz8N5E0PFirG6Oq9PMTtaWh1OQ0 node app.js"
   },
   "engines": {
     "node": "12.4.0",
