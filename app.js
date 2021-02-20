@@ -15,7 +15,7 @@ const course = require('./routes/course.route');
 const app = express();
 connection();
 const corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: 'https://admin-host-api.herokuapp.com',
   credentials: true
 }
 app.use(cors(corsOptions));
