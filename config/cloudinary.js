@@ -1,5 +1,5 @@
 const cloudinary = require('cloudinary');
-const config = require('../config/config.json');
+const config = require('./config.json');
 console.log(config);
 cloudinary.config({ 
   cloud_name: config.CLOUD_NAME,
