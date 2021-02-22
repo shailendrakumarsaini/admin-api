@@ -1,5 +1,5 @@
 {
-    "DOMAIN":"https://admin-host-api.herokuapp.com",
+    "DOMAIN":"http://localhost:4200",
     "EMAIL":{
         "USERNAME":"facksaini123456789@gmail.com",
         "PASSWORD":"HackSainiG"
