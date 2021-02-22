@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const config = require('../config/config.json');
 
 module.exports = ()=> {
+    console.log(config.MONGODB_URI_LIVE);
     mongoose.connect(config.MONGODB_URI_LIVE, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify :false })
     // mongoose.connect(config.MONGODB_URI_LIVE, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify :false })
     .then(()=>{

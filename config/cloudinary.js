@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary');
 const config = require('../config/config.json');
+console.log(config);
 cloudinary.config({ 
   cloud_name: config.CLOUD_NAME,
   api_key: config.API_ID,
