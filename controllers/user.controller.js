@@ -65,6 +65,7 @@ const createDocument = async (req, res, next)=>{
             userObj.image = result.secure_url;
         }
         const user = await userObj.save();
+        console.log('config=>',config);
         if(user){
             var verificationLink = `${config.DOMAIN}/user/verification?email=${user.email}`;
             var mailOptions = {
