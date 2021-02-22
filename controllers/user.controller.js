@@ -11,8 +11,8 @@ const smtpTransport = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
     auth: {
-        user: config.email.user,
-        pass: config.email.pass
+        user: config.EMAIL.USERNAME,
+        pass: config.EMAIL.PASSWORD
     }
 });
 
@@ -66,13 +66,17 @@ const createDocument = async (req, res, next)=>{
         }
         const user = await userObj.save();
         if(user){
-            var verificationLink = `${config.domain}/user/verification?email=${user.email}`;
+            var verificationLink = `${config.DOMAIN}/user/verification?email=${user.email}`;
             var mailOptions = {
                 to: 'sainishailendra1996@gmail.com',
                 subject: 'Welcome greeting from Osteen',
                 html: `<p> Hello  ${user.name}  !</p> \n <p>Your login details as below. </p> \n <p> UserName:  ${ user.email} </p> \n <p> Password:  ${req.body.password} </p> \n
                         <p> Please complete you verification by clicking on the link:  ${verificationLink} </p> \n`
             }
+            console.log('auth',{auth: {
+                user: config.EMAIL.USERNAME,
+                pass: config.EMAIL.PASSWORD
+            }});
             smtpTransport.sendMail(mailOptions, function (error, response) {
                 if (error) {
                     res.status(400).json({ success : false, message: 'Invalid User Logins For Sending Email' });

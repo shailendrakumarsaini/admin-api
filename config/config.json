@@ -1,8 +1,8 @@
 {
-    "domain":"http://localhost:3000",
-    "email": {
-        "user": "facksaini123456789@gmail.com",
-        "pass": "HackSainiG"
+    "DOMAIN":"https://admin-host-api.herokuapp.com",
+    "EMAIL":{
+        "USERNAME":"facksaini123456789@gmail.com",
+        "PASSWORD":"HackSainiG"
     },
     "PORT":3000,
     "MONGODB_URI":"mongodb://localhost:27017/admindb",
