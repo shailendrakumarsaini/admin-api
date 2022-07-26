@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
         // const userToken = req.cookies.jwt;
         const userToken = req.headers.token;
         // if this token not verified then it will throw error
-        const verifyUser = await jwt.verify(userToken, config.secret_key);
+        const verifyUser = await jwt.verify(userToken, config.SECRET_KEY);
         const user = await User.findOne({_id: verifyUser._id });
 
         req.token = userToken;
